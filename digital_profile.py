@@ -4,7 +4,7 @@ import streamlit as st
 st.title("My Digital Profile")
 # 2. หัวข้อย่อยที่ 1: แนะนำตัว
 
-st header ("แนะนำตัว")
+st.header ("แนะนำตัว")
 st.write("นางสาวธัญสินี ขวัญศรีวงค์")
 st.write("ชื่อเล่น อองตอง")
 st.write("เลขที่ 32 ม.4/7")
