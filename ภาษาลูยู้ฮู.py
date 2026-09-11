@@ -95,7 +95,7 @@ ans1 = st.text_input(
     value=st.session_state.ans1_val,
 )
 ans2 = st.text_input(
-    "ข้อ 2: "ลันวูน ลี้นู้ ลานงูน เลอะยู้ ลากมูก ” แปลงเป็นภาษาไทยว่าอะไร?",
+    "ข้อ 2: "ลันวูน ลี้นู้ ลานงูน เลอะยู้ ลากมูก" แปลงเป็นภาษาไทยว่าอะไร?",
     value=st.session_state.ans2_val,
 )
 ans3 = st.text_input(
