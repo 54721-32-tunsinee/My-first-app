@@ -74,14 +74,14 @@ def show_result_dialog(ans1, ans2, ans3, ans4, ans5):
         st.error(f"❌ ข้อ 3: ยังไม่ถูกต้อง (คุณตอบ '{u_ans3}')")
 
     # ข้อ 4
-    if u_ans4 == "หิวแต่ไม่มีเงิน":
+    if u_ans4 == "หิวข้าวแต่ไม่มีเงิน":
         st.success("✅ ข้อ 4: ถูกต้อง")
         score += 1
     else:
         st.error(f"❌ ข้อ 4: ยังไม่ถูกต้อง (คุณตอบ '{u_ans4}')")
 
     # ข้อ 5
-    if u_ans5 == "หวัดดี คุณเป็นไงบ้าง":
+    if u_ans5 == "หวัดดี":
         st.success("✅ ข้อ 5: ถูกต้อง")
         score += 1
     else:
@@ -129,7 +129,7 @@ ans4 = st.text_input(
 )
 
 ans5 = st.text_input(
-    "ข้อ 5: “หลัดหวุด ลีดู ลุนคัน” เป็นไงบ้าง",
+    "ข้อ 5: “หลัดหวุด ลีดู” หมายถึง ",
     value=st.session_state.ans5_val,
 )
 
