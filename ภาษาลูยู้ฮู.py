@@ -2,35 +2,48 @@ import streamlit as st
 
 st.title("เกมทายภาษาลูหมวดคำพูดในชีวิตประจำวัน")
 
-# 1. กำหนดค่าเริ่มต้นใน session_state ถ้ายังไม่มี
+# ----------------------------------------------------
+# กำหนดค่าเริ่มต้นใน session_state
+# ----------------------------------------------------
 if "ans1_val" not in st.session_state:
     st.session_state.ans1_val = ""
+
 if "ans2_val" not in st.session_state:
     st.session_state.ans2_val = ""
+
 if "ans3_val" not in st.session_state:
     st.session_state.ans3_val = ""
+
 if "ans4_val" not in st.session_state:
     st.session_state.ans4_val = ""
+
 if "ans5_val" not in st.session_state:
     st.session_state.ans5_val = ""
 
-
-# 📌 ฟังก์ชันเคลียร์ค่าเมื่อกดปุ่มเริ่มใหม่
-def reset_game():
-    st.session_state.ans1_val = ""  # เคลียร์ค่าช่องข้อ 1
-    st.session_state.ans2_val = ""  # เคลียร์ค่าช่องข้อ 2
-    st.session_state.ans3_val = ""  # เคลียร์ค่าช่องข้อ 3
-    st.session_state.ans4_val = ""  # เคลียร์ค่าช่องข้อ 4
-    st.session_state.ans5_val = ""  # เคลียร์ค่าช่องข้อ 5
-    st.session_state.is_ended = False  # ปิด Dialog
+if "is_ended" not in st.session_state:
+    st.session_state.is_ended = False
 
 
 # ----------------------------------------------------
-# 📌 ฟังก์ชัน MessageBox (Dialog)
+# ฟังก์ชันเคลียร์ค่าเมื่อกดปุ่มเริ่มใหม่
+# ----------------------------------------------------
+def reset_game():
+    st.session_state.ans1_val = ""
+    st.session_state.ans2_val = ""
+    st.session_state.ans3_val = ""
+    st.session_state.ans4_val = ""
+    st.session_state.ans5_val = ""
+    st.session_state.is_ended = False
+
+
+# ----------------------------------------------------
+# ฟังก์ชันแสดงผลลัพธ์
 # ----------------------------------------------------
 @st.dialog("📊 สรุปผลการเล่นเกม")
 def show_result_dialog(ans1, ans2, ans3, ans4, ans5):
+
     st.balloons()
+
     score = 0
 
     u_ans1 = ans1.strip().lower()
@@ -39,42 +52,42 @@ def show_result_dialog(ans1, ans2, ans3, ans4, ans5):
     u_ans4 = ans4.strip().lower()
     u_ans5 = ans5.strip().lower()
 
-    # ตรวจข้อ 1
+    # ข้อ 1
     if u_ans1 == "หิวข้าว":
         st.success("✅ ข้อ 1: ถูกต้อง")
         score += 1
     else:
         st.error(f"❌ ข้อ 1: ยังไม่ถูกต้อง (คุณตอบ '{u_ans1}')")
-        
-    # ตรวจข้อ 2
+
+    # ข้อ 2
     if u_ans2 == "วันนี้งานเยอะมาก":
         st.success("✅ ข้อ 2: ถูกต้อง")
         score += 1
     else:
         st.error(f"❌ ข้อ 2: ยังไม่ถูกต้อง (คุณตอบ '{u_ans2}')")
 
-    # ตรวจข้อ 3
+    # ข้อ 3
     if u_ans3 == "ปวดหัวเพราะเจองาน":
         st.success("✅ ข้อ 3: ถูกต้อง")
         score += 1
     else:
         st.error(f"❌ ข้อ 3: ยังไม่ถูกต้อง (คุณตอบ '{u_ans3}')")
-        
-    # ตรวจข้อ 4
+
+    # ข้อ 4
     if u_ans4 == "หิวแต่ไม่มีเงิน":
         st.success("✅ ข้อ 4: ถูกต้อง")
         score += 1
     else:
         st.error(f"❌ ข้อ 4: ยังไม่ถูกต้อง (คุณตอบ '{u_ans4}')")
 
- # ตรวจข้อ 5
+    # ข้อ 5
     if u_ans5 == "หวัดดี คุณเป็นไงบ้าง":
         st.success("✅ ข้อ 5: ถูกต้อง")
         score += 1
     else:
         st.error(f"❌ ข้อ 5: ยังไม่ถูกต้อง (คุณตอบ '{u_ans5}')")
 
-
+    # สรุปคะแนน
     st.info(f"🏆 ได้คะแนนรวม: {score} คะแนน")
 
     if score == 5:
@@ -84,33 +97,46 @@ def show_result_dialog(ans1, ans2, ans3, ans4, ans5):
 
 
 # ----------------------------------------------------
-# 1. ปุ่มเริ่มเล่นเกม
+# ปุ่มเริ่มเล่นเกม
 # ----------------------------------------------------
-st.button("🎮 เริ่มเล่นเกม", on_click=reset_game)
+st.button(
+    "🎮 เริ่มเล่นเกม",
+    on_click=reset_game
+)
 
-# 3. ช่องรับคำตอบ (ใช้ value ผูกกับตัวแปรตรงๆ เพื่อสั่งเคลียร์ได้)
+
+# ----------------------------------------------------
+# ช่องรับคำตอบ
+# ----------------------------------------------------
 ans1 = st.text_input(
     "ข้อ 1: “หลิวหู ล้าวขู้” แปลว่าอะไร",
     value=st.session_state.ans1_val,
 )
+
 ans2 = st.text_input(
     "ข้อ 2: “ลันวูน ลี้นู้ ลานงูน เลอะยู้ ลากมูก” แปลงเป็นภาษาไทยว่าอะไร?",
     value=st.session_state.ans2_val,
 )
+
 ans3 = st.text_input(
-    "ข้อ 3: “หลวดปูด หลัวหู  เลาะพรุ เลอจู ลานงูน” แปลว่าอะไร?",
+    "ข้อ 3: “หลวดปูด หลัวหู เลาะพรุ เลอจู ลานงูน” แปลว่าอะไร?",
     value=st.session_state.ans3_val,
 )
+
 ans4 = st.text_input(
     "ข้อ 4: “หิวข้าว แต่‘ไล่มู ลีมู’เงิน” ประโยคนี้หมายถึงอะไร?",
     value=st.session_state.ans4_val,
 )
+
 ans5 = st.text_input(
     "ข้อ 5: “หลัดหวุด ลีดู ลุนคัน” เป็นไงบ้าง",
     value=st.session_state.ans5_val,
 )
 
-# อัปเดตค่าล่าสุดเข้าตัวแปร
+
+# ----------------------------------------------------
+# บันทึกคำตอบล่าสุด
+# ----------------------------------------------------
 st.session_state.ans1_val = ans1
 st.session_state.ans2_val = ans2
 st.session_state.ans3_val = ans3
@@ -118,14 +144,25 @@ st.session_state.ans4_val = ans4
 st.session_state.ans5_val = ans5
 
 
-# 4. ปุ่มส่งคำตอบ
-st.session_state and not st.session_state.get("is_ended", False):
+# ----------------------------------------------------
+# ปุ่มส่งคำตอบ
+# ----------------------------------------------------
+if not st.session_state.get("is_ended", False):
+
     if st.button("📥 ส่งคำตอบ"):
         st.session_state.is_ended = True
         st.rerun()
 
-   
-# 5. แสดง Dialog ผลลัพธ์
-if st.session_state.get("is_ended", False):
-    show_result_dialog(ans1, ans2, ans3, ans4, ans5)
 
+# ----------------------------------------------------
+# แสดง Dialog ผลลัพธ์
+# ----------------------------------------------------
+if st.session_state.get("is_ended", False):
+
+    show_result_dialog(
+        st.session_state.ans1_val,
+        st.session_state.ans2_val,
+        st.session_state.ans3_val,
+        st.session_state.ans4_val,
+        st.session_state.ans5_val
+    )
